@@ -157,6 +157,17 @@ export const techStack: Skill[] = [
 
 export const projects: Project[] = [
   {
+    id: '0',
+    title: 'Personal Portfolio Website',
+    description:
+      'My personal portfolio website featuring a modern, responsive design with dark mode support, built to showcase my projects and skills.',
+    longDescription:
+      'A personal portfolio website designed to professionally display my work, skills, and experience. Built with Next.js 14 and Tailwind CSS, it features a clean, modern interface with full dark mode support, smooth animations, and a responsive layout that looks great on all devices.',
+    image: '/mylogo.png',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    featured: true,
+  },
+  {
     id: '1',
     title: 'Web Sistem Manajemen Pengelolaan Keuangan Zakat dan Donasi',
     description:
