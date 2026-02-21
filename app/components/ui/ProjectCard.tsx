@@ -20,7 +20,7 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
       >
         <div className="grid md:grid-cols-2 gap-0">
           {/* Project Image/Video */}
-          <div className="relative h-52 md:h-auto bg-slate-100 dark:bg-slate-700 overflow-hidden">
+          <div className={`relative h-52 md:h-auto overflow-hidden ${project.image === '/mylogo.png' ? 'bg-white' : 'bg-slate-100 dark:bg-slate-700'}`}>
             {project.video ? (
               <video
                 src={project.video}
@@ -35,7 +35,7 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
                 src={project.image}
                 alt={project.title}
                 fill
-                className="object-cover"
+                className={`object-contain ${project.image === '/mylogo.png' ? 'p-8' : 'object-cover'}`}
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Project Image/Video */}
-      <div className="relative h-40 bg-slate-100 dark:bg-slate-700 overflow-hidden">
+      <div className={`relative h-40 overflow-hidden ${project.image === '/mylogo.png' ? 'bg-white' : 'bg-slate-100 dark:bg-slate-700'}`}>
         {project.video ? (
           <video
             src={project.video}
@@ -121,7 +121,7 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover"
+            className={`object-contain ${project.image === '/mylogo.png' ? 'p-8' : 'object-cover'}`}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
