@@ -203,9 +203,6 @@ export default function Navbar() {
           })}
         </div>
       </nav>
-
-      {/* Bottom Spacer for Mobile */}
-      <div className="md:hidden h-20" />
     </>
   );
 }

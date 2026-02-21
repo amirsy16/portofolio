@@ -3,8 +3,24 @@
 import { techStack } from '@/app/data/portfolio';
 import * as SimpleIcons from 'react-icons/si';
 import { IconType } from 'react-icons';
+import { motion, Variants } from 'framer-motion';
 
 export default function Skills() {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
   return (
     <section
       id="skills"
@@ -12,7 +28,13 @@ export default function Skills() {
     >
       <div className="max-w-5xl mx-auto w-full space-y-12">
         {/* Section Header */}
-        <div className="text-center space-y-3 section-header">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-3 section-header"
+        >
           <p className="text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 text-sm">
             <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
             Tech Stack
@@ -21,15 +43,22 @@ export default function Skills() {
           <h2 className="text-3xl sm:text-4xl font-bold">
             <span className="gradient-text">Skills & Technologies</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Skills Grid - More Compact */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 sm:gap-4">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 sm:gap-4"
+        >
           {techStack.map((tech) => {
             const Icon = SimpleIcons[tech.icon as keyof typeof SimpleIcons] as IconType | undefined;
             
             return (
-              <div
+              <motion.div
+                variants={itemVariants}
                 key={tech.name}
                 className="group relative overflow-hidden"
               >
@@ -50,13 +79,19 @@ export default function Skills() {
                     {tech.name}
                   </h3>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Bottom CTA - Compact */}
-        <div className="text-center pt-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-center pt-4"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 shadow-sm text-xs sm:text-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -64,7 +99,7 @@ export default function Skills() {
             </span>
             Open to new opportunities
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { projects } from '@/app/data/portfolio';
 import ProjectCard from '@/app/components/ui/ProjectCard';
+import { motion } from 'framer-motion';
 
 export default function Projects() {
   const featuredProjects = projects.filter(p => p.featured);
@@ -14,7 +15,13 @@ export default function Projects() {
     >
       <div className="max-w-5xl mx-auto w-full space-y-10">
         {/* Section Header */}
-        <div className="text-center space-y-2 section-header">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-2 section-header"
+        >
           <p className="text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 text-sm">
             <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
             Portfolio
@@ -26,7 +33,7 @@ export default function Projects() {
           <p className="text-slate-600 dark:text-slate-300 text-sm max-w-2xl mx-auto">
             A selection of projects that showcase my skills and experience
           </p>
-        </div>
+        </motion.div>
 
         {/* Featured Projects - Larger Cards */}
         {featuredProjects.length > 0 && (
@@ -39,7 +46,13 @@ export default function Projects() {
 
         {/* Other Projects - Grid */}
         {otherProjects.length > 0 && (
-          <div className="space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="space-y-6"
+          >
             <div className="text-center">
               <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">Other Projects</h3>
             </div>
@@ -52,7 +65,7 @@ export default function Projects() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

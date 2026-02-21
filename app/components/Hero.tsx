@@ -4,6 +4,7 @@ import { personalInfo } from '@/app/data/portfolio';
 import SocialLinks from '@/app/components/ui/SocialLinks';
 import { MapPin, Mail, Calendar, GraduationCap, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
+import { motion, Variants } from 'framer-motion';
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -11,17 +12,45 @@ export default function Hero() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-start justify-center relative px-4 sm:px-6 lg:px-8 pt-32 pb-16 bg-white dark:bg-slate-950"
+      className="min-h-screen flex items-start justify-center relative px-4 sm:px-6 lg:px-8 pt-8 lg:pt-32 pb-16 bg-white dark:bg-slate-950"
     >
       <div className="max-w-5xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
         {/* Left Column: Content */}
-        <div className="lg:col-span-7 space-y-8">
+        <motion.div 
+          className="lg:col-span-7 space-y-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* ── Header: Avatar + Name ── */}
-          <div className="flex items-center gap-5">
+          <motion.div variants={itemVariants} className="flex items-center gap-5">
             {/* Small Avatar (Mobile Only) */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 lg:hidden transform rotate-3 hover:rotate-0 transition-transform duration-300">
               <div className="absolute inset-0 bg-white dark:bg-slate-800 rounded-lg shadow-md border border-slate-200 dark:border-slate-700 p-1">
@@ -49,21 +78,21 @@ export default function Hero() {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         {/* ── About ── */}
-        <div className="space-y-2">
+        <motion.div variants={itemVariants} className="space-y-2">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">About</h2>
           <div className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed space-y-3">
             {personalInfo.description.split('\n\n').map((para, i) => (
               <p key={i}>{para}</p>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* ── Experience ── */}
         {personalInfo.experience && personalInfo.experience.length > 0 && (
-          <div className="space-y-3">
+          <motion.div variants={itemVariants} className="space-y-3">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">Experience</h2>
             <div className="space-y-3">
               {personalInfo.experience.map((exp) => (
@@ -90,12 +119,12 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* ── Education ── */}
         {personalInfo.education && personalInfo.education.length > 0 && (
-          <div className="space-y-3">
+          <motion.div variants={itemVariants} className="space-y-3">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">Education</h2>
             <div className="space-y-3">
               {personalInfo.education.map((edu) => (
@@ -117,11 +146,11 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* ── Social + CTA ── */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+        <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-between gap-4 pt-2">
           <SocialLinks socials={personalInfo.socials} />
           <button
             onClick={() => scrollToSection('projects')}
@@ -130,11 +159,16 @@ export default function Hero() {
             View My Work
             <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
           </button>
-        </div>
-        </div>
+        </motion.div>
+        </motion.div>
 
         {/* Right Column: Creative Avatar (Desktop Only) */}
-        <div className="hidden lg:flex lg:col-span-5 justify-center lg:justify-end items-start pt-2">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+          className="hidden lg:flex lg:col-span-5 justify-center lg:justify-end items-start pt-2"
+        >
           <div className="relative group">
             {/* Background Glow */}
             <div className="absolute -inset-6 bg-slate-200 dark:bg-slate-800 rounded-full blur-3xl opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
@@ -162,7 +196,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

@@ -3,6 +3,7 @@
 import { ExternalLink, Github } from 'lucide-react';
 import Image from 'next/image';
 import { Project } from '@/app/lib/types';
+import { motion } from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;
@@ -14,9 +15,12 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
   if (featured) {
     // Featured Project - Horizontal Layout
     return (
-      <div
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
         className="group relative rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 project-card shadow-sm"
-        style={{ animationDelay: `${index * 0.1}s` }}
       >
         <div className="grid md:grid-cols-2 gap-0">
           {/* Project Image/Video */}
@@ -95,15 +99,18 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   // Regular Project Card - Vertical Layout
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
       className="group relative rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl project-card shadow-sm"
-      style={{ animationDelay: `${index * 0.1}s` }}
     >
       {/* Project Image/Video */}
       <div className={`relative h-40 overflow-hidden ${project.image === '/mylogo.png' ? 'bg-white' : 'bg-slate-100 dark:bg-slate-700'}`}>
@@ -185,6 +192,6 @@ export default function ProjectCard({ project, index = 0, featured = false }: Pr
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { personalInfo } from '@/app/data/portfolio';
 import SocialLinks from '@/app/components/ui/SocialLinks';
 import { Send, Mail, CheckCircle2, XCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -67,7 +68,13 @@ export default function Contact() {
     >
       <div className="max-w-3xl mx-auto w-full space-y-6">
         {/* Section Header */}
-        <div className="text-center space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-2"
+        >
           <p className="text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 text-sm">
             <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
             Let&apos;s Talk
@@ -91,10 +98,17 @@ export default function Contact() {
               {personalInfo.email}
             </span>
           </a>
-        </div>
+        </motion.div>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <motion.form 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          onSubmit={handleSubmit} 
+          className="space-y-4"
+        >
           {/* Name Input */}
           <div className="space-y-1">
             <label htmlFor="name" className="block text-xs font-medium text-slate-700 dark:text-slate-300">
@@ -179,10 +193,16 @@ export default function Contact() {
           <p className="text-[10px] text-center text-slate-500 dark:text-slate-500 -mt-1">
             Your information is safe and will never be shared
           </p>
-        </form>
+        </motion.form>
 
         {/* Divider */}
-        <div className="relative py-2">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="relative py-2"
+        >
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
           </div>
@@ -191,12 +211,18 @@ export default function Contact() {
               or connect via
             </span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Social Links */}
-        <div className="flex justify-center -mt-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex justify-center -mt-2"
+        >
           <SocialLinks socials={personalInfo.socials} />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

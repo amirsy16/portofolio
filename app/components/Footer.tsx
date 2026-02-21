@@ -3,6 +3,7 @@
 import { personalInfo } from '@/app/data/portfolio';
 import SocialLinks from '@/app/components/ui/SocialLinks';
 import { Heart, ArrowUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -12,7 +13,13 @@ export default function Footer() {
   return (
     <footer className="relative bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 pb-20 md:pb-0">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid md:grid-cols-3 gap-8 mb-8"
+        >
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold gradient-text">
@@ -55,10 +62,16 @@ export default function Footer() {
               {personalInfo.email}
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4"
+        >
           <p className="text-slate-600 dark:text-slate-400 text-sm flex items-center gap-2">
             © {new Date().getFullYear()} {personalInfo.name}. Built with
             <Heart className="w-4 h-4 text-red-500 animate-pulse" />
@@ -72,7 +85,7 @@ export default function Footer() {
           >
             <ArrowUp className="w-5 h-5 text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
           </button>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
