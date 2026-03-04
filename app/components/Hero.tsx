@@ -5,8 +5,40 @@ import SocialLinks from '@/app/components/ui/SocialLinks';
 import { MapPin, Mail, Calendar, GraduationCap, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
+import { useState, useEffect } from 'react';
+
+function useTypewriter(text: string, typingSpeed = 90, deletingSpeed = 50, pauseMs = 1800) {
+  const [displayed, setDisplayed] = useState('');
+  const [phase, setPhase] = useState<'typing' | 'pausing' | 'deleting'>('typing');
+
+  useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (phase === 'typing') {
+      if (displayed.length < text.length) {
+        timeout = setTimeout(() => setDisplayed(text.slice(0, displayed.length + 1)), typingSpeed);
+      } else {
+        timeout = setTimeout(() => setPhase('pausing'), pauseMs);
+      }
+    } else if (phase === 'pausing') {
+      timeout = setTimeout(() => setPhase('deleting'), 0);
+    } else {
+      if (displayed.length > 0) {
+        timeout = setTimeout(() => setDisplayed(text.slice(0, displayed.length - 1)), deletingSpeed);
+      } else {
+        timeout = setTimeout(() => setPhase('typing'), 400);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayed, phase, text, typingSpeed, deletingSpeed, pauseMs]);
+
+  return displayed;
+}
 
 export default function Hero() {
+  const typedName = useTypewriter(personalInfo.name);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -69,7 +101,8 @@ export default function Hero() {
             <div>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mb-0.5">Hello, I&apos;m</p>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
-                {personalInfo.name}
+                {typedName}
+                <span className="inline-block w-0.5 h-[1em] align-middle ml-0.5 bg-slate-900 dark:bg-white animate-pulse" />
               </h1>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{personalInfo.location}</span>

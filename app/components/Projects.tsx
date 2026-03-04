@@ -37,7 +37,7 @@ export default function Projects() {
 
         {/* Featured Projects - Larger Cards */}
         {featuredProjects.length > 0 && (
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {featuredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} featured />
             ))}
