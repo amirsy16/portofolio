@@ -33,6 +33,18 @@ export const personalInfo: PersonalInfo = {
       period: 'March 2025 - Present',
       description: 'Developing and maintaining internal financial management system for zakat and donation operations, streamlining administrative workflows and financial reporting processes.',
       current: true,
+      role: 'Project Manager · Full Stack Developer · Solo Maintainer',
+      story: `Proyek ini bermula dari mata kuliah Proyek Pembangunan Sistem Informasi (PPSI), di mana kelompok kami mendapatkan mitra nyata: Lembaga Amil Zakat Insan Madani Jambi.\n\nSaya dipercaya sebagai Project Manager sekaligus satu-satunya Full Stack Developer di kelompok. Saya merancang arsitektur sistem, membangun seluruh fitur dari nol, dan menjadi satu-satunya yang bertanggung jawab atas maintenance website hingga saat ini.\n\nSistem yang dibangun mencakup manajemen transaksi zakat & donasi, laporan keuangan otomatis, manajemen donatur, dan alur administrasi internal lembaga semuanya dibangun agar aman, efisien, dan mudah dioperasikan oleh staf lembaga.`,
+      tags: ['Laravel', 'Filament', 'MySQL', 'PHP', 'Tailwind CSS', 'Livewire'],
+      gallery: [
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.32%20AM.jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.32%20AM%20(1).jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.32%20AM%20(2).jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.33%20AM.jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.33%20AM%20(1).jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.33%20AM%20(2).jpeg',
+        '/madani/WhatsApp%20Image%202026-03-05%20at%2012.26.33%20AM%20(3).jpeg',
+      ],
     },
     {
       id: '2',
@@ -152,6 +164,11 @@ export const techStack: Skill[] = [
     name: 'GitHub',
     icon: 'SiGithub',
     color: '#181717',
+  },
+  {
+    name: 'Supabase',
+    icon: 'SiSupabase',
+    color: '#3ECF8E',
   },
 ];
 

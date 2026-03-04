@@ -27,6 +27,10 @@ export interface Experience {
   period: string;
   description: string;
   current: boolean;
+  story?: string;
+  role?: string;
+  tags?: string[];
+  gallery?: string[];
 }
 
 export interface Social {
