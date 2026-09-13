@@ -2,71 +2,38 @@
 
 import { projects } from '@/app/data/portfolio';
 import ProjectCard from '@/app/components/ui/ProjectCard';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import { VIEWPORT_ONCE } from '@/lib/motion';
 
 export default function Projects() {
-  const featuredProjects = projects.filter(p => p.featured);
-  const otherProjects = projects.filter(p => !p.featured);
+  const ordered = [...projects].sort((a, b) => Number(a.id) - Number(b.id));
 
   return (
-    <section
-      id="projects"
-      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
-    >
-      <div className="max-w-5xl mx-auto w-full space-y-10">
-        {/* Section Header */}
-        <motion.div 
+    <section id="projects" className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl space-y-8">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={VIEWPORT_ONCE}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-2 section-header"
+          className="space-y-2"
         >
-          <p className="text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 text-sm">
-            <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
-            Portfolio
-            <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold">
-            <span className="gradient-text">My Projects</span>
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 text-sm max-w-2xl mx-auto">
-            A selection of projects that showcase my skills and experience
-          </p>
+          <p className="font-ledger text-[11px] uppercase tracking-[0.3em] text-[var(--emerald)]">03 · Cases — evidence over claims</p>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display max-w-xl text-3xl font-semibold leading-tight text-[var(--ink)] sm:text-4xl">
+              Four entries, each one still accountable to users.
+            </h2>
+            <p className="font-ledger max-w-xs text-[11px] leading-relaxed text-[var(--muted-ink)]">
+              Compact exhibit grid — scan the evidence at a glance.
+            </p>
+          </div>
         </motion.div>
 
-        {/* Featured Projects - Larger Cards */}
-        {featuredProjects.length > 0 && (
-          <div className="grid md:grid-cols-2 gap-6">
-            {featuredProjects.map((project, index) => (
-              <ProjectCard key={project.id} project={project} index={index} featured />
-            ))}
-          </div>
-        )}
-
-        {/* Other Projects - Grid */}
-        {otherProjects.length > 0 && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">Other Projects</h3>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              {otherProjects.map((project, index) => (
-                <ProjectCard 
-                  key={project.id} 
-                  project={project} 
-                  index={index + featuredProjects.length} 
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {ordered.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { personalInfo } from '@/app/data/portfolio';
 import SocialLinks from '@/app/components/ui/SocialLinks';
 import { Send, Mail, CheckCircle2, XCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+import { VIEWPORT_ONCE } from '@/lib/motion';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -62,69 +63,65 @@ export default function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      className="min-h-screen flex items-center py-16 pb-32 md:pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950"
-    >
-      <div className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-        {/* Left: Info */}
+    <section id="contact" className="px-4 py-16 pb-32 sm:px-6 sm:py-20 md:pb-20 lg:px-8">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-start gap-10 md:grid-cols-2 lg:gap-14">
+        {/* Left: ledger info */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
+          viewport={VIEWPORT_ONCE}
           transition={{ duration: 0.6 }}
           className="space-y-6"
         >
-          <div className="space-y-2">
-            <p className="text-slate-500 dark:text-slate-400 font-medium flex items-center gap-2 text-xs uppercase tracking-widest">
-              <span className="w-6 h-0.5 bg-slate-400 rounded-full" />
-              Let&apos;s Talk
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-              Get in Touch
+          <div className="space-y-3">
+            <p className="font-ledger text-[11px] uppercase tracking-[0.3em] text-[var(--emerald)]">04 · Contact — open ledger</p>
+            <h2 className="font-display text-3xl font-semibold leading-tight text-[var(--ink)] sm:text-4xl">
+              File your request. I reply like ops: fast and clear.
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Interested in working together? Feel free to reach out for{' '}
-              <span className="font-semibold text-slate-900 dark:text-white">work or freelance opportunities</span>.
+            <p className="max-w-md text-sm leading-relaxed text-[var(--muted-ink)]">
+              Available for <span className="font-semibold text-[var(--ink)]">full-time roles and freelance builds</span> —
+              especially finance, inventory, and internal tools.
             </p>
           </div>
 
-          {/* Email */}
           <a
             href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors group"
+            className="inline-flex items-center gap-3 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-3 pr-5 hover:border-[var(--emerald)]"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-slate-200 dark:group-hover:bg-slate-700 transition-colors">
-              <Mail className="w-4 h-4" />
-            </div>
-            <span className="font-medium border-b border-slate-300 dark:border-slate-600 group-hover:border-slate-900 dark:group-hover:border-white transition-colors">
-              {personalInfo.email}
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--emerald)]/10 text-[var(--emerald)]">
+              <Mail className="h-4 w-4" />
+            </span>
+            <span>
+              <span className="font-ledger block text-[10px] uppercase tracking-[0.25em] text-[var(--muted-ink)]">Direct line</span>
+              <span className="block text-sm font-semibold text-[var(--ink)]">{personalInfo.email}</span>
             </span>
           </a>
 
-          {/* Divider */}
           <div className="flex items-center gap-3">
-            <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
-            <span className="text-xs text-slate-400 dark:text-slate-500">or connect via</span>
-            <div className="flex-1 border-t border-slate-200 dark:border-slate-800" />
+            <div className="h-px flex-1 bg-[var(--line)]" />
+            <span className="font-ledger text-[10px] uppercase tracking-[0.25em] text-[var(--muted-ink)]">or connect via</span>
+            <div className="h-px flex-1 bg-[var(--line)]" />
           </div>
 
           <SocialLinks socials={personalInfo.socials} />
         </motion.div>
 
-        {/* Right: Form */}
+        {/* Right: ledger form */}
         <motion.form
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          viewport={VIEWPORT_ONCE}
+          transition={{ duration: 0.6, delay: 0.12 }}
           onSubmit={handleSubmit}
-          className="space-y-3"
+          className="space-y-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:p-6"
         >
-          <div className="space-y-1">
-            <label htmlFor="name" className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-              Your Name
+          <div className="flex items-center justify-between">
+            <p className="font-ledger text-[11px] uppercase tracking-[0.25em] text-[var(--muted-ink)]">New entry</p>
+            <span className="font-ledger rounded-full bg-[var(--gold)]/20 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--ink)]">{status}</span>
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="name" className="font-ledger block text-[11px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
+              01 · Your name
             </label>
             <input
               type="text"
@@ -133,14 +130,14 @@ export default function Contact() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-500 focus:outline-none transition-colors"
-              placeholder="John Doe"
+              className="w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3.5 py-2.5 text-sm text-[var(--ink)] placeholder:text-[var(--muted-ink)]/70 focus:border-[var(--emerald)] focus:outline-none"
+              placeholder="Jane Ops"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="email" className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-              Your Email
+          <div className="space-y-1.5">
+            <label htmlFor="email" className="font-ledger block text-[11px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
+              02 · Your email
             </label>
             <input
               type="email"
@@ -149,14 +146,14 @@ export default function Contact() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-500 focus:outline-none transition-colors"
-              placeholder="john@example.com"
+              className="w-full rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3.5 py-2.5 text-sm text-[var(--ink)] placeholder:text-[var(--muted-ink)]/70 focus:border-[var(--emerald)] focus:outline-none"
+              placeholder="jane@company.com"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="message" className="block text-xs font-medium text-slate-700 dark:text-slate-300">
-              Your Message
+          <div className="space-y-1.5">
+            <label htmlFor="message" className="font-ledger block text-[11px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
+              03 · Scope & timeline
             </label>
             <textarea
               id="message"
@@ -165,29 +162,29 @@ export default function Contact() {
               onChange={handleChange}
               required
               rows={5}
-              className="w-full px-3 py-2 text-sm rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-slate-400 dark:focus:border-slate-500 focus:outline-none transition-colors resize-none"
-              placeholder="Tell me about your project..."
+              className="w-full resize-none rounded-xl border border-[var(--line)] bg-[var(--paper)] px-3.5 py-2.5 text-sm text-[var(--ink)] placeholder:text-[var(--muted-ink)]/70 focus:border-[var(--emerald)] focus:outline-none"
+              placeholder="What should keep working on day one?"
             />
           </div>
 
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="w-full px-6 py-2.5 text-sm rounded-lg bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-white text-white dark:text-slate-900 font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--emerald)] px-6 py-3 text-sm font-semibold text-[var(--paper)] hover:bg-[var(--emerald-deep)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {status === 'loading' ? (
-              <><div className="w-4 h-4 border-2 border-white dark:border-slate-900 border-t-transparent rounded-full animate-spin" />Sending...</>
+              <><div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--paper)] border-t-transparent" />Filing...</>
             ) : status === 'success' ? (
-              <><CheckCircle2 className="w-4 h-4" />Message Sent!</>
+              <><CheckCircle2 className="h-4 w-4" />Entry received</>
             ) : status === 'error' ? (
-              <><XCircle className="w-4 h-4" />Failed to Send</>
+              <><XCircle className="h-4 w-4" />Retry entry</>
             ) : (
-              <><Send className="w-4 h-4" />Send Message</>
+              <><Send className="h-4 w-4" />File entry</>
             )}
           </button>
 
-          <p className="text-[10px] text-center text-slate-400 dark:text-slate-500">
-            Your information is safe and will never be shared
+          <p className="font-ledger text-center text-[10px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
+            Sealed · never shared
           </p>
         </motion.form>
 

@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Navbar />
       <PageTransition>
-        <main className="relative">
+        <main className="ledger-paper relative min-h-screen bg-[var(--paper)] text-[var(--ink)]">
           <Hero />
           <Skills />
           <Projects />

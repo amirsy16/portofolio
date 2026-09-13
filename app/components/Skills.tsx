@@ -1,103 +1,89 @@
 'use client';
 
-import { techStack } from '@/app/data/portfolio';
-import * as SimpleIcons from 'react-icons/si';
-import { IconType } from 'react-icons';
-import { motion, Variants } from 'framer-motion';
+import { skills, techStack } from '@/app/data/portfolio';
+import { motion } from 'motion/react';
+import { fadeUp, VIEWPORT_ONCE } from '@/lib/motion';
 
 export default function Skills() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05
-      }
-    }
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  };
+  const marquee = [...techStack, ...techStack];
 
   return (
-    <section
-      id="skills"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950"
-    >
-      <div className="max-w-5xl mx-auto w-full space-y-12">
-        {/* Section Header */}
-        <motion.div 
+    <section id="skills" className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl space-y-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={VIEWPORT_ONCE}
           transition={{ duration: 0.6 }}
-          className="text-center space-y-3 section-header"
+          className="space-y-3"
         >
-          <p className="text-slate-700 dark:text-slate-300 font-medium flex items-center justify-center gap-2 text-sm">
-            <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
-            Tech Stack
-            <span className="w-8 h-0.5 bg-slate-400 dark:bg-slate-400 rounded-full"></span>
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold">
-            <span className="gradient-text">Skills & Technologies</span>
-          </h2>
+          <p className="font-ledger text-[11px] uppercase tracking-[0.3em] text-[var(--emerald)]">02 · Stack — proven in production</p>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="font-display max-w-xl text-3xl font-semibold leading-tight text-[var(--ink)] sm:text-4xl">
+              Tools I trust with real money and real ops.
+            </h2>
+            <p className="font-ledger max-w-xs text-[11px] leading-relaxed text-[var(--muted-ink)]">
+              Grouped by where each tool earns its keep: interface, system, and delivery.
+            </p>
+          </div>
         </motion.div>
 
-        {/* Skills Grid - More Compact */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 sm:gap-4"
-        >
-          {techStack.map((tech) => {
-            const Icon = SimpleIcons[tech.icon as keyof typeof SimpleIcons] as IconType | undefined;
-            
-            return (
-              <motion.div
-                variants={itemVariants}
-                key={tech.name}
-                className="group relative overflow-hidden"
+        {/* Marquee strip */}
+        <div className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] py-3">
+          <div className="animate-ledger-marquee flex w-max items-center gap-3 pr-3">
+            {marquee.map((tech, i) => (
+              <span
+                key={`${tech.name}-${i}`}
+                className="font-ledger flex items-center gap-2 whitespace-nowrap rounded-full border border-[var(--line)] bg-[var(--paper)] px-4 py-1.5 text-xs text-[var(--ink)]"
               >
-                <div className="relative p-4 sm:p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 transition-colors duration-300 h-full flex flex-col items-center justify-center gap-2">
-                  {/* Icon */}
-                  {Icon && (
-                    <div 
-                      style={{ 
-                        color: tech.color,
-                      }}
-                    >
-                      <Icon className="w-7 h-7 sm:w-8 sm:h-8" />
-                    </div>
-                  )}
-                  
-                  {/* Name */}
-                  <h3 className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-white text-center leading-tight">
-                    {tech.name}
-                  </h3>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--gold)]" />
+                {tech.name}
+              </span>
+            ))}
+          </div>
+        </div>
 
-        {/* Bottom CTA - Compact */}
-        <motion.div 
+        {/* Ledger table */}
+        <div className="grid gap-4 md:grid-cols-3">
+          {skills.map((group, gi) => (
+            <motion.div
+              key={group.category}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={VIEWPORT_ONCE}
+              transition={{ delay: gi * 0.08 }}
+              className="overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)]"
+            >
+              <div className="flex items-center justify-between border-b border-[var(--line)] bg-[var(--secondary)] px-5 py-3">
+                <h3 className="text-sm font-bold text-[var(--ink)]">{group.category}</h3>
+                <span className="font-ledger text-[11px] text-[var(--gold)]">{String(gi + 1).padStart(2, '0')}</span>
+              </div>
+              <ul className="divide-y divide-[var(--line)]">
+                {group.skills.map((skill) => (
+                  <li key={skill} className="font-ledger flex items-center justify-between px-5 py-2.5 text-xs text-[var(--ink)]">
+                    <span>{skill}</span>
+                    <span className="text-[var(--emerald)]">✓</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center pt-4"
+          viewport={VIEWPORT_ONCE}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex justify-center pt-2"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 text-slate-700 dark:text-slate-300 shadow-sm text-xs sm:text-sm">
+          <div className="font-ledger inline-flex items-center gap-2 rounded-full border border-[var(--emerald)]/40 bg-[var(--emerald)]/10 px-4 py-2 text-xs text-[var(--ink)]">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--emerald)] opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--emerald)]" />
             </span>
-            Open to new opportunities
+            Open to full-time & freelance ledger work
           </div>
         </motion.div>
       </div>

@@ -1,17 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'motion/react';
+import { pageLoadParent } from '@/lib/motion';
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
+  const reduceMotion = useReducedMotion();
+  if (reduceMotion) return <>{children}</>;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1], // Custom ease for a smooth, aesthetic feel
-      }}
-    >
+    <motion.div variants={pageLoadParent} initial="hidden" animate="visible">
       {children}
     </motion.div>
   );
